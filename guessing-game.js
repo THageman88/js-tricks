@@ -1,14 +1,20 @@
-function guessingGame(guess) {
-    let newGuess = guess;
-    let randNum = Math.floor(Math.random()*100)
+function guessingGame() {
+    let target = Math.floor(Math.random() * 100);
+    let guesses = 0;
+    let gameEnded = false;
 
-    if(newGuess < randNum){
-        return("Your guess is less than your target number")
+    return function(guess) {
+        guesses++;
+        if (gameEnded) {
+            return "The game is over, you already won!";
+        } else if (guess < target) {
+            return `${guess} is too low!`;
+        } else if (guess > target) {
+            return `${guess} is too high!`;
+        } else {
+            gameEnded = true;
+            return `You win! You found ${target} in ${guesses} guesses.`;
+        }
+    };
 }
-if (newGuess > randNum)
-{
-    return ("Your guess is more than your target number")
-}else{
-    return("Hooray you guessed it!!")
-}
-module.exports = { guessingGame };
+ const game = guessingGame();
